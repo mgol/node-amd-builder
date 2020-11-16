@@ -1,7 +1,7 @@
 amd-builder
 ==========
 
-This project aims at providing a NodeJS service to build bundles out of AMD projects in a git repository. This was developed to help jQuery Mobile build the bundle builder.
+This project aims at providing a NodeJS service to build jQuery Mobile bundles.
 Initial checkout as well as workspace creation have to be done manually.
 
 ## API v1
@@ -42,25 +42,33 @@ URL arguments are:
 
 ### Setup an instance for your project
 
-1. Clone a bare repo of your project:
-```
-mkdir <basedir>/repos
-cd <basedir>/repos
-git clone --bare git://github.com/yourname/yourproject.git
-```
+Perform all the following operations in the `node-amd-builder` main folder.
 
-1. Now create the staging directory:
-```
-mkdir <basedir>/staging
-```
-1. Install the dependencies with ```npm install```
+1. Clone a bare repo of jQuery Mobile:
+    ```
+    mkdir -p repos/jquery
+    cd repos/jquery
+    git clone --bare https://github.com/jquery/jquery-mobile.git
+    cd ../..
+    ```
+
+1. Install the dependencies with `npm install`
 
 1. Start the service:
-```
-node server.js -r <basedir>/repos -s <basedir>/staging
-```
+    ```
+    node server.js -r "$(pwd)/repos" -s "$(pwd)/staging"
+    ```
+Invoke just `node server.js --help` to see other available options.
 
-1. Add a post_receive hook to the your GitHub repo pointing at ```http://instance:3000/post_receive```
+1. ~~Add a post_receive hook to the your GitHub repo pointing at `http://instance:3000/post_receive`~~ (only needed if you don't checkout tags manually as described above)
+
+### New jQuery Mobile versions
+
+If a new jQuery Mobile version gets released, create a proper directory in `staging` for that version:
+```
+mkdir -p staging/VERSION_TAG/jquery-mobile
+```
+and extract all the files from the `VERSION_TAG` of the jQuery Mobile repository into that directory.
 
 ## Author
 

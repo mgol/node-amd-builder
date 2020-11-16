@@ -1,4 +1,4 @@
 .idea/
 /node_modules/
-/staging
+/staging/**/__compiled
 /repos
